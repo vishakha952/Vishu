@@ -13,16 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Generate SVG
-        uses: jasineri/gitartwork@v2
+      - uses: jasineri/gitartwork@v1   # ✅ FIXED HERE
         with:
-          user_name: Vish   # ⚠️ your username
+          user_name: Vish
           text: VISHAKHA
 
-      - name: Commit and Push
+      - name: Commit SVG
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
