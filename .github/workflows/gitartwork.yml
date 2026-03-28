@@ -1,22 +1,30 @@
 
- name: gitartwork from a contribution graph
- on: 
-   push:
-   schedule:
-     - cron: '* */24 * * *'
- jobs:
-   build:
-     name: Make gitartwork SVG
-     runs-on: ubuntu-latest
-     steps:
-       - uses: actions/checkout@v3
-       - uses: jasineri/gitartwork@v2
-         with:
-            # Use this username's contribution graph  
-            user_name: Vishu
-            # Text on contribution graph 
-            text: VISHAKHA
-       - uses: jasineri/gitartwork@v1
-            
-                
-            
+
+name: Generate Git Artwork
+
+on:
+  schedule:
+    - cron: "0 */24 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Generate SVG
+        uses: jasineri/gitartwork@v2
+        with:
+          user_name: Vish   # ⚠️ your GitHub username
+          text: VISHAKHA
+
+      - name: Commit SVG
+        run: |
+          git config --global user.name "vishakha952"
+          git config --global user.email "vishakhat895@gmail.com"
+          git add gitartwork.svg
+          git commit -m "add gitartwork"
+          git push
